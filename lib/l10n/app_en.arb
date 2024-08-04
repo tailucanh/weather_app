@@ -1,13 +1,3 @@
 {
-    "tvStart": "Bắt đầu ngay!",
-    "titleLogin":"Lưu các sự kiện lên Cloud một cách an toàn",
-    "textLoginGG":"Đăng nhập với Google",
-    "textLoginFb":"Đăng nhập với FaceBook",
-    "textLoginApple":"Đăng nhập với Apple",
-    "contentLogin_1":"Khi đăng nhâp, bạn động ý với ",
-    "contentLoginTerms":"Điều khoản sử dụng",
-    "contentLogin_2":" và ",
-    "contentLoginPrivacy":"Chính sách bảo mật ",
-    "contentLogin_3":"của TimeShift Planne."
-
+      "app_name": "Weather"
 }

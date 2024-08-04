@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'services/app_language_constants.dart';
 import 'services/app_router.dart';
 import 'services/app_shared_preference.dart';
 
@@ -11,7 +12,7 @@ void main() {
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
 
   @override
@@ -59,7 +60,7 @@ class _MyAppState extends State<MyApp> {
 
               ],
               child: MaterialApp.router(
-                title: 'TimeShift Planner',
+                title: translation(context).app_name,
                 debugShowCheckedModeBanner: false,
                 theme: ThemeData(
                   primarySwatch: Colors.blue,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter/widgets.dart';
 
-import '../ui/splash_screen.dart';
+import '../ui/home_screen.dart';
 
 final GoRouter router = GoRouter(routes: [
   GoRoute(
@@ -10,7 +10,7 @@ final GoRouter router = GoRouter(routes: [
     pageBuilder: (BuildContext context, GoRouterState state) {
       return CustomTransitionPage<void>(
         key: state.pageKey,
-        child: const SplashScreen(),
+        child: const HomeScreen(),
         transitionDuration: const Duration(milliseconds: 150),
         transitionsBuilder: (BuildContext context,
             Animation<double> animation,
