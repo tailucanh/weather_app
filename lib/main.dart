@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'services/app_language_constants.dart';
 import 'services/app_router.dart';
 import 'services/app_shared_preference.dart';
@@ -38,40 +39,33 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-
-
   }
 
   @override
   void didChangeDependencies() {
+    getLocale().then((locale) => {setLocale(locale)});
     super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
-
     return FutureBuilder(
         future: AppSharedPreference.getInstance(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             appSharedPreference = snapshot.data;
-            return   MultiBlocProvider(
-              providers: [
-
-              ],
-              child: MaterialApp.router(
-                title: translation(context).app_name,
-                debugShowCheckedModeBanner: false,
-                theme: ThemeData(
-                  primarySwatch: Colors.blue,
-                ),
-                locale: _locale,
-                localizationsDelegates: AppLocalizations.localizationsDelegates,
-                // Add this line,
-                supportedLocales: AppLocalizations.supportedLocales,
-                routerConfig: router,
-
+            return   MaterialApp.router(
+              title: "Weather",
+              debugShowCheckedModeBanner: false,
+              theme: ThemeData(
+                primarySwatch: Colors.blue,
               ),
+              locale: _locale,
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              // Add this line,
+              supportedLocales: AppLocalizations.supportedLocales,
+              routerConfig: router,
+
             );
           }
           return Container();
