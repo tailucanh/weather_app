@@ -129,36 +129,39 @@ class _HomeScreenState extends State<HomeScreen> {
               height: positionedHeight,
               curve: Curves.easeInOut,
               duration:  const Duration(milliseconds: 300),
-              child: Container(
-                decoration: const BoxDecoration(
-                  borderRadius:  BorderRadius.only(
-                    topLeft: Radius.circular(44),
-                    topRight: Radius.circular(44),
-                  ),
-                  gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [AppColors.gradient_blue_600, AppColors.gradient_blue_800],
-                  ),
+              child: ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(44),
+                  topRight: Radius.circular(44),
                 ),
                 child: Container(
                   decoration: const BoxDecoration(
-                    borderRadius:  BorderRadius.only(
-                      topLeft: Radius.circular(44),
-                      topRight: Radius.circular(44),
-                    ),
                     gradient: LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
-                      colors: [AppColors.gradient_blue_600, AppColors.gradient_blue_800],
+                      colors: [AppColors.gradient_blue_1, AppColors.gradient_blue_2],
+                    ),
+                  ),
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      borderRadius:  BorderRadius.only(
+                        topLeft: Radius.circular(44),
+                        topRight: Radius.circular(44),
+                      ),
+                    ),
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+                      child: const SizedBox(),
                     ),
                   ),
                 ),
               ),
+
+
             ),
             //Bottom navigator
             Positioned(
-                bottom: 0,
+                bottom: -2,
                 left: 0,
                 right: 0,
                 child: SizedBox(
@@ -167,10 +170,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Stack(
                     alignment: Alignment.bottomCenter,
                     children:[
-                      SizedBox(
+                      ClipRect(
+                        child: ImageFiltered(
+                          imageFilter: ImageFilter.blur(sigmaX: 0.5, sigmaY: 0.5),
                           child: Image.asset(AppAssets.icBottomBar,
                             fit: BoxFit.fitWidth,
                             width: AppHelpers.getSizeWithDevice(context),),
+                        ),
                       ),
                       SizedBox(
                         child: Image.asset(AppAssets.icSubtract,
@@ -182,7 +188,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                         },
                         child: Padding(
-                          padding: const EdgeInsets.only(bottom: 20),
+                          padding: const EdgeInsets.only(bottom: 30),
                           child: Stack(
                             alignment: Alignment.center,
                             children: [
