@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:ui';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
@@ -16,8 +17,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  double positionedHeight = 400;
+  double positionedHeight = 350;
   bool _isScroll = false;
+  bool _isTabSelected = true;
 
   @override
   void initState() {
@@ -33,12 +35,12 @@ class _HomeScreenState extends State<HomeScreen> {
           double delta = details.primaryDelta!;
           if (delta < 0) {
             setState(() {
-              positionedHeight = MediaQuery.of(context).size.height / 1.16;
+              positionedHeight = AppHelpers.getSizeHeightDevice(context) / 1.16;
               _isScroll = true;
             });
           } else {
             setState(() {
-              positionedHeight = 400;
+              positionedHeight = 350;
               _isScroll = false;
             });
           }
@@ -54,111 +56,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 fit: BoxFit.fitHeight
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 40),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: AppHelpers.getSizeWithDevice(context),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text("Thanh Hoa",
-                             textAlign: TextAlign.center,
-                             maxLines: 1,
-                             style: TextStyle(
-                                 color: AppColors.light_primary,
-                                 fontSize: 34,
-                                 fontStyle: FontStyle.normal,
-                                 fontFamily: AppHelpers.POPPINS_FONT),),
-                        Text("19°",
-                            style: TextStyle(
-                                color: AppColors.light_primary,
-                                fontSize: 96,
-                                height: 1,
-                                fontStyle: FontStyle.normal,
-                                fontFamily: AppHelpers.POPPINS_FONT),),
-                        Text("Mostly Clear",
-                          textAlign: TextAlign.center,
-                          maxLines: 1,
-                          style: TextStyle(color: AppColors.light_secondary,
-                              fontSize: 20,
-                              fontStyle: FontStyle.normal,
-                              fontFamily: AppHelpers.POPPINS_FONT),),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("H:24°",
-                              textAlign: TextAlign.center,
-                              maxLines: 1,
-                              style: TextStyle(color: AppColors.light_primary,
-                                  fontSize: 20,
-                                  fontStyle: FontStyle.normal,
-                                  fontFamily: AppHelpers.POPPINS_FONT),),
-                            const SizedBox(width: 5,),
-                            Text("L:18°",
-                              textAlign: TextAlign.center,
-                              maxLines: 1,
-                              style: TextStyle(color: AppColors.light_primary,
-                                  fontSize: 20,
-                                  fontStyle: FontStyle.normal,
-                                  fontFamily: AppHelpers.POPPINS_FONT),),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    width: AppHelpers.getSizeWithDevice(context),
-                    child: Image.asset(AppAssets.icHouse,
-                        width:AppHelpers.getSizeWithDevice(context),),
-                  )
-                ],
-              ),
-            ),
+
+            _uiTemperature(),
             //UI weather
-            AnimatedPositioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              height: positionedHeight,
-              curve: Curves.easeInOut,
-              duration:  const Duration(milliseconds: 300),
-              child: ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(44),
-                  topRight: Radius.circular(44),
-                ),
-                child: Container(
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [AppColors.gradient_blue_1, AppColors.gradient_blue_2],
-                    ),
-                  ),
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      borderRadius:  BorderRadius.only(
-                        topLeft: Radius.circular(44),
-                        topRight: Radius.circular(44),
-                      ),
-                    ),
-                    child: BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
-                      child: const SizedBox(),
-                    ),
-                  ),
-                ),
-              ),
+            _uiBoxWeather(),
 
-
-            ),
             //Bottom navigator
             Positioned(
                 bottom: -2,
@@ -246,4 +148,230 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
+  Widget _uiTemperature(){
+    return Padding(
+      padding: const EdgeInsets.only(top: 40),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: AppHelpers.getSizeWithDevice(context),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text("Thanh Hoa",
+                  textAlign: TextAlign.center,
+                  maxLines: 1,
+                  style: TextStyle(
+                      color: AppColors.light_primary,
+                      fontSize: 34,
+                      fontStyle: FontStyle.normal,
+                      fontFamily: AppHelpers.POPPINS_FONT),),
+                Text("19°",
+                  style: TextStyle(
+                      color: AppColors.light_primary,
+                      fontSize: 96,
+                      height: 1,
+                      fontStyle: FontStyle.normal,
+                      fontFamily: AppHelpers.POPPINS_FONT),),
+                Text("Mostly Clear",
+                  textAlign: TextAlign.center,
+                  maxLines: 1,
+                  style: TextStyle(color: AppColors.light_secondary,
+                      fontSize: 20,
+                      fontStyle: FontStyle.normal,
+                      fontFamily: AppHelpers.POPPINS_FONT),),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("H:24°",
+                      textAlign: TextAlign.center,
+                      maxLines: 1,
+                      style: TextStyle(color: AppColors.light_primary,
+                          fontSize: 20,
+                          fontStyle: FontStyle.normal,
+                          fontFamily: AppHelpers.POPPINS_FONT),),
+                    const SizedBox(width: 5,),
+                    Text("L:18°",
+                      textAlign: TextAlign.center,
+                      maxLines: 1,
+                      style: TextStyle(color: AppColors.light_primary,
+                          fontSize: 20,
+                          fontStyle: FontStyle.normal,
+                          fontFamily: AppHelpers.POPPINS_FONT),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            width: AppHelpers.getSizeWithDevice(context),
+            child: Image.asset(AppAssets.icHouse,
+              width:AppHelpers.getSizeWithDevice(context),),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _uiBoxWeather(){
+      return  AnimatedPositioned(
+        bottom: 0,
+        left: 0,
+        right: 0,
+        height: positionedHeight,
+        curve: Curves.easeInOut,
+        duration:  const Duration(milliseconds: 300),
+        child: ClipRRect(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(44),
+            topRight: Radius.circular(44),
+          ),
+          child: Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [AppColors.gradient_blue_1, AppColors.gradient_blue_2],
+              ),
+            ),
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 50,
+                    height: 8,
+                    margin: const EdgeInsets.only(top: 8),
+                    decoration: const BoxDecoration(
+                      borderRadius:  BorderRadius.all(Radius.circular(10)),
+                      color: AppColors.color_black_30
+                    ),
+                  ),
+                  //App bar
+                  Container(
+                    margin:  const EdgeInsets.only(top: 15),
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(color: AppColors.light_tertiary, width: 1)
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.color_black_30,
+                          spreadRadius: 0,
+                          blurRadius: 10,
+                          offset: Offset(0, 5), // changes position of shadow
+                        ),
+                      ],
+                    ),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _isTabSelected = true;
+                              });
+                            },
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Center(
+                                  child: Text("Hourly Forecast",
+                                      textAlign: TextAlign.center,
+                                      maxLines: 1,
+                                      style: TextStyle(color: AppColors.light_secondary,
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w600,
+                                          fontFamily: AppHelpers.POPPINS_FONT),
+                                      ),
+                                ),
+
+                                _isTabSelected ? Container(
+                                  margin: const EdgeInsets.only(top: 8),
+                                  width: AppHelpers.getSizeWithDevice(context) / 2 - 15,
+                                  height: 5,
+                                  decoration: const BoxDecoration(
+                                    gradient: LinearGradient(
+                                      begin: Alignment.centerLeft,
+                                      end: Alignment.centerRight,
+                                      colors: [AppColors.color_white_0, AppColors.light_primary,AppColors.color_white_0],
+                                    ),
+                                  ),
+                                ):  SizedBox(
+                                  height: 13,
+                                  width: AppHelpers.getSizeWithDevice(context) / 2 - 15,
+                                ),
+                              ],
+                            ),
+
+                          ),
+
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _isTabSelected = false;
+                              });
+                            },
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Center(
+                                  child: Text("Weekly Forecast",
+                                    textAlign: TextAlign.center,
+                                    maxLines: 1,
+                                    style: TextStyle(color: AppColors.light_secondary,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w600,
+                                        fontFamily: AppHelpers.POPPINS_FONT),
+                                  ),
+                                ),
+                                !_isTabSelected ?  Container(
+                                  margin: const EdgeInsets.only(top: 8),
+                                  width: AppHelpers.getSizeWithDevice(context) / 2 - 15,
+                                  height: 5,
+                                  decoration: const BoxDecoration(
+                                    gradient: LinearGradient(
+                                      begin: Alignment.centerLeft,
+                                      end: Alignment.centerRight,
+                                      colors: [AppColors.color_white_0, AppColors.light_primary,AppColors.color_white_0],
+                                    ),
+                                  ),
+                                ):  SizedBox(
+                                  height: 13,
+                                  width: AppHelpers.getSizeWithDevice(context) / 2 - 15,
+                                ),
+                              ],
+                            ),
+
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+
+                ],
+              ),
+            ),
+          ),
+        ),
+
+
+      );
+  }
+
 }
