@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:weather_app/services/app_assets.dart';
 import 'package:weather_app/services/app_colors.dart';
 import 'package:weather_app/services/app_helpers.dart';
+import 'package:weather_app/ui/widgets/weather_item_view.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -20,6 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   double positionedHeight = 350;
   bool _isScroll = false;
   bool _isTabSelected = true;
+
 
   @override
   void initState() {
@@ -362,16 +364,79 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                     ),
-                  )
-
+                  ),
+                  // UI list
+                  _isTabSelected ? _uiListWeatherHourly() : _uiListWeatherWeekly(),
                 ],
               ),
             ),
           ),
         ),
 
-
       );
   }
 
+  Widget _uiListWeatherHourly(){
+      return SizedBox(
+        height: 180,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 20, top: 30),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Expanded(
+                  child: ListView.builder(
+                      key: Key(AppHelpers.KEY_LIST_WEATHER_HOURLY),
+                      shrinkWrap: true,
+                      itemCount: AppHelpers.lisDataDemo().length,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index){
+                        return WeatherItemView(
+                            onTap: () {},
+                            data: AppHelpers.lisDataDemo()[index],
+                            colorBackground: AppColors.color_fill_item,
+                            colorStroke: AppColors.color_white_20, );
+
+                      },
+
+                  )
+              ),
+            ],
+          ),
+        ),
+      );
+  }
+
+  Widget _uiListWeatherWeekly(){
+    return SizedBox(
+      height: 180,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 20, top: 30),
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Expanded(
+                child: ListView.builder(
+                  key: Key(AppHelpers.KEY_LIST_WEATHER_HOURLY),
+                  shrinkWrap: true,
+                  itemCount: AppHelpers.lisDataDemo2().length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index){
+                    return WeatherItemView(
+                        onTap: () {},
+                        data: AppHelpers.lisDataDemo2()[index],
+                        colorBackground: AppColors.color_fill_item,
+                        colorStroke: AppColors.color_white_20);
+
+                  },
+
+                )
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
 }
+
