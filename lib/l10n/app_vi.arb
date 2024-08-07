@@ -1,3 +1,8 @@
 {
-    "app_name": "Thời tiết"
+    "app_name": "Thời tiết",
+    "title_dialog_location" : "Vị trí",
+    "description_dialog_location" : "Cho phép truy cập vào vị trí \ncủa bạn khi bạn sử dụng ứng dụng?",
+    "text_allow" : "Chấp nhận",
+    "text_skip" : "Bỏ qua"
+
 }

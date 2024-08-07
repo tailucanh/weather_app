@@ -7,6 +7,7 @@ class AppAssets {
   static const String icBottomBar = '${iconPath}bottom_bar.png';
   static const String icPlus = '${iconPath}plus.svg';
   static const String icMap = '${iconPath}map.svg';
+  static const String icLocation = '${iconPath}location.png';
 
   static const String icMoonCloudFastWind = '${iconPath}moon_cloud_fast_wind.png';
   static const String icMoonCloudMidRain = '${iconPath}moon_cloud_mid_rain.png';

@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter/widgets.dart';
+import 'package:weather_app/services/app_helpers.dart';
+import 'package:weather_app/ui/detail/detail_weather_screen.dart';
 
-import '../ui/home_screen.dart';
+import '../ui/home/home_screen_page.dart';
+
+
 
 final GoRouter router = GoRouter(routes: [
   GoRoute(
@@ -10,7 +14,7 @@ final GoRouter router = GoRouter(routes: [
     pageBuilder: (BuildContext context, GoRouterState state) {
       return CustomTransitionPage<void>(
         key: state.pageKey,
-        child: const HomeScreen(),
+        child: const HomeScreenPage(),
         transitionDuration: const Duration(milliseconds: 150),
         transitionsBuilder: (BuildContext context,
             Animation<double> animation,
@@ -18,14 +22,35 @@ final GoRouter router = GoRouter(routes: [
             Widget child) {
           return FadeTransition(
             opacity:
-            CurveTween(curve: Curves.easeInOut).animate(animation),
+            CurveTween(curve: Curves.easeIn).animate(animation),
             child: child,
           );
         },
       );
     },
-  ),
 
+  ),
+  GoRoute(
+    path: '/${AppHelpers.KEY_DETAIL_WEATHER}',
+    pageBuilder: (BuildContext context, GoRouterState state) {
+      return CustomTransitionPage<void>(
+        key: state.pageKey,
+        child: const DetailWeatherScreen(),
+        transitionDuration: const Duration(milliseconds: 150),
+        transitionsBuilder: (BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+            Widget child) {
+          return FadeTransition(
+            opacity:
+            CurveTween(curve: Curves.easeIn).animate(animation),
+            child: child,
+          );
+        },
+      );
+    },
+
+  ),
 ]);
 CustomTransitionPage<void> BuildCustomTransitionPage({
   required LocalKey key,
